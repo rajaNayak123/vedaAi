@@ -6,6 +6,7 @@ import Topbar from '@/components/Topbar';
 import { MobileHeader, MobileBottomNav } from '@/components/MobileNav';
 import { useAssignmentStore } from '@/store/assignmentStore';
 import toast from 'react-hot-toast';
+import { Plus, Minus } from 'lucide-react';
 
 const QUESTION_TYPES = [
   'Multiple Choice Questions',
@@ -85,9 +86,13 @@ export default function CreateAssignmentPage() {
 
   const counter = (val: number, onChange: (v: number) => void, min = 0) => (
     <div className="capsule-counter">
-      <span className="capsule-counter-btn" onClick={() => onChange(Math.max(min, val - 1))}>−</span>
+      <span className="capsule-counter-btn" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => onChange(Math.max(min, val - 1))}>
+        <Minus size={14} />
+      </span>
       <span className="capsule-counter-val">{val}</span>
-      <span className="capsule-counter-btn" onClick={() => onChange(val + 1)}>+</span>
+      <span className="capsule-counter-btn" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => onChange(val + 1)}>
+        <Plus size={14} />
+      </span>
     </div>
   );
 
@@ -178,7 +183,6 @@ export default function CreateAssignmentPage() {
               </div>
 
               {/* Question Types */}
-              <label style={{ fontSize: 13, fontWeight: 500, display: 'block', marginBottom: 12 }}>Question Type</label>
               <div className="qt-headers">
                 <div className="qt-header-type">Question Type</div>
                 <div className="qt-header-questions">No. of Questions</div>
@@ -227,8 +231,10 @@ export default function CreateAssignmentPage() {
               >
                 <span style={{
                   width: 20, height: 20, borderRadius: '50%', background: '#1A1A1A',
-                  color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700
-                }}>+</span>
+                  color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                }}>
+                  <Plus size={12} strokeWidth={3} />
+                </span>
                 <span style={{ fontSize: 13, fontWeight: 600, color: '#1A1A1A' }}>Add Question Type</span>
               </button>
 
