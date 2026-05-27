@@ -36,11 +36,7 @@ wsManager.init(server);
 
 // Inline Worker (for simplicity in single-server mode)
 const workerConnection = new IORedis(process.env.REDIS_URL!, {
-  tls: {},
   maxRetriesPerRequest: null,
-  retryStrategy(times) {
-    return Math.min(times * 50, 2000);
-  },
 });
 
 workerConnection.on('error', (err) => {

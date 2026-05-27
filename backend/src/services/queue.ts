@@ -2,11 +2,7 @@ import { Queue } from 'bullmq';
 import IORedis from 'ioredis';
 
 export const redis = new IORedis(process.env.REDIS_URL!, {
-  tls: {},
   maxRetriesPerRequest: null,
-  retryStrategy(times) {
-    return Math.min(times * 50, 2000);
-  },
 });
 
 redis.on('error', (err) => {

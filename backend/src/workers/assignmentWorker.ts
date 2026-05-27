@@ -9,11 +9,7 @@ dotenv.config({ path: path.join(__dirname, '../../.env') });
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/vedaai';
 
 const connection = new IORedis(process.env.REDIS_URL!, {
-  tls: {},
   maxRetriesPerRequest: null,
-  retryStrategy(times) {
-    return Math.min(times * 50, 2000);
-  },
 });
 
 connection.on('error', (err) => {
