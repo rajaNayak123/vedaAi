@@ -167,7 +167,7 @@ export default function AssignmentsPage() {
                     key={assignment._id}
                     className="assignment-card"
                     onClick={(e) => handleCardClick(assignment._id, e)}
-                    style={{ position: 'relative' }}
+                    style={{ position: 'relative', zIndex: openMenu === assignment._id ? 45 : 1 }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
                       <h3 style={{ fontWeight: 700, fontSize: 20, color: '#1A1A1A', flex: 1, letterSpacing: '-0.3px', margin: 0 }}>{assignment.title}</h3>
