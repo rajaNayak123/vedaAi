@@ -62,23 +62,39 @@ body {
 }
 
 .btn-create {
-  background: #1A1A1A;
+  background-image: linear-gradient(180deg, #2D2D2D 0%, #1A1A1A 100%), 
+                    linear-gradient(135deg, rgb(240, 110, 85) 0%, rgb(233, 144, 144) 100%);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
   color: white;
-  border: 2px solid rgb(233, 144, 144);
-  border-radius: 24px;
-  padding: 10px 16px;
-  font-size: 14px;
-  font-weight: 500;
+  border: 5px solid transparent;
+  border-radius: 28px;
+  padding: 12px 18px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
   justify-content: center;
-  transition: opacity 0.2s;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   margin-bottom: 24px;
+  box-shadow: 0 6px 18px rgba(240, 110, 85, 0.25), 
+              0 2px 4px rgba(0, 0, 0, 0.15);
 }
-.btn-create:hover { opacity: 0.85; }
+.btn-create:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 8px 24px rgba(240, 110, 85, 0.35), 
+              0 3px 6px rgba(0, 0, 0, 0.2);
+  filter: brightness(1.1);
+}
+.btn-create:active {
+  transform: translateY(0.5px);
+  box-shadow: 0 4px 12px rgba(240, 110, 85, 0.2), 
+              0 1px 2px rgba(0, 0, 0, 0.15);
+}
 
 .nav-item {
   display: flex;

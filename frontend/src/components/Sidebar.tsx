@@ -36,7 +36,13 @@ export default function Sidebar() {
       {/* Create button */}
       <Link href="/assignments/create" style={{ textDecoration: 'none' }}>
         <button className="btn-create">
-          <span style={{ fontSize: 18 }}>+</span> Create Assignment
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style={{ marginRight: 4 }}>
+            {/* Large sparkle */}
+            <path d="M10 4 Q10 12 2 12 Q10 12 10 20 Q10 12 18 12 Q10 12 10 4 Z" />
+            {/* Small sparkle */}
+            <path d="M19 3 Q19 7 15 7 Q19 7 19 11 Q19 7 23 7 Q19 7 19 3 Z" />
+          </svg>
+          Create Assignment
         </button>
       </Link>
 
