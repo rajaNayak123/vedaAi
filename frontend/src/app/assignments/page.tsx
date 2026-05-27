@@ -203,7 +203,7 @@ export default function AssignmentsPage() {
                               position: 'absolute', right: 0, top: '100%', zIndex: 50,
                               background: 'white', border: '1px solid rgba(0,0,0,0.08)', borderRadius: 12,
                               boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-                              minWidth: 140, overflow: 'hidden', padding: '4px'
+                              minWidth: 150, overflow: 'hidden', padding: '4px'
                             }}
                           >
                             <button
@@ -212,7 +212,8 @@ export default function AssignmentsPage() {
                               style={{
                                 display: 'block', width: '100%', padding: '8px 12px', textAlign: 'left',
                                 background: 'none', border: 'none', cursor: 'pointer', fontSize: 13,
-                                fontWeight: 500, color: '#4B5563', borderRadius: 8, transition: 'background-color 0.15s'
+                                fontWeight: 500, color: '#4B5563', borderRadius: 8, transition: 'background-color 0.15s',
+                                whiteSpace: 'nowrap'
                               }}
                             >View Assignment</button>
                             <button
@@ -221,7 +222,8 @@ export default function AssignmentsPage() {
                               style={{
                                 display: 'block', width: '100%', padding: '8px 12px', textAlign: 'left',
                                 background: 'none', border: 'none', cursor: 'pointer', fontSize: 13,
-                                fontWeight: 500, color: '#DC2626', borderRadius: 8, transition: 'background-color 0.15s'
+                                fontWeight: 500, color: '#DC2626', borderRadius: 8, transition: 'background-color 0.15s',
+                                whiteSpace: 'nowrap'
                               }}
                             >Delete</button>
                           </div>
