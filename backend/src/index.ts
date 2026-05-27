@@ -35,9 +35,22 @@ app.use(errorHandler);
 wsManager.init(server);
 
 // Inline Worker (for simplicity in single-server mode)
-const workerConnection = new IORedis(process.env.REDIS_URL || 'redis://localhost:6379', {
+const workerConnection = new IORedis(process.env.REDIS_URL!, {
+  tls: {},
   maxRetriesPerRequest: null,
+  retryStrategy(times) {
+    return Math.min(times * 50, 2000);
+  },
 });
+
+workerConnection.on('error', (err) => {
+  console.error('[Worker Redis] Error:', err);
+});
+
+workerConnection.on('connect', () => {
+  console.log('[Worker Redis] Connected');
+});
+
 
 const worker = new Worker(
   'assignment-generation',
@@ -97,7 +110,7 @@ mongoose
   .then(() => {
     console.log('MongoDB connected');
     server.listen(PORT, () => {
-      console.log(`Server running on http://localhost:${PORT}`);
+      console.log(`Server running on port ${PORT}`);
       console.log(`WebSocket available at ws://localhost:${PORT}/ws`);
     });
   })

@@ -6,21 +6,22 @@ import path from 'path';
 
 dotenv.config({ path: path.join(__dirname, '../../.env') });
 
-const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/vedaai';
 
-const connection = new IORedis(redisUrl, {
+const connection = new IORedis(process.env.REDIS_URL!, {
+  tls: {},
   maxRetriesPerRequest: null,
-  enableOfflineQueue: false,
-  retryStrategy: (times) => Math.min(times * 200, 2000),
-  reconnectOnError: (err) => {
-    const targetErrors = ['READONLY', 'ECONNRESET', 'ETIMEDOUT'];
-    return targetErrors.some((e) => err.message.includes(e));
+  retryStrategy(times) {
+    return Math.min(times * 50, 2000);
   },
 });
 
 connection.on('error', (err) => {
-  console.error('[Worker Redis] Connection error:', err.message);
+  console.error('[Worker Redis] Error:', err);
+});
+
+connection.on('connect', () => {
+  console.log('[Worker Redis] Connected');
 });
 
 async function connectDB() {

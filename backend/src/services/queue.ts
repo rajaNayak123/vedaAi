@@ -1,21 +1,22 @@
 import { Queue } from 'bullmq';
 import IORedis from 'ioredis';
 
-const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
-
-export const redis = new IORedis(redisUrl, {
+export const redis = new IORedis(process.env.REDIS_URL!, {
+  tls: {},
   maxRetriesPerRequest: null,
-  enableOfflineQueue: false,
-  retryStrategy: (times) => Math.min(times * 200, 2000),
-  reconnectOnError: (err) => {
-    const targetErrors = ['READONLY', 'ECONNRESET', 'ETIMEDOUT'];
-    return targetErrors.some((e) => err.message.includes(e));
+  retryStrategy(times) {
+    return Math.min(times * 50, 2000);
   },
 });
 
 redis.on('error', (err) => {
-  console.error('[Redis] Connection error:', err.message);
+  console.error('[Redis] Error:', err);
 });
+
+redis.on('connect', () => {
+  console.log('[Redis] Connected');
+});
+
 
 export const assignmentQueue = new Queue('assignment-generation', {
   connection: redis,
