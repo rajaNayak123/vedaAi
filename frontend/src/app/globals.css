@@ -898,6 +898,24 @@ body {
   color: #DC2626 !important;
 }
 
+.dropdown-trigger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  transition: all 0.2s ease;
+}
+.dropdown-trigger:hover {
+  background-color: #F3F4F6;
+  color: #1A1A1A;
+}
+
 /* Desktop bottom-center floating button */
 .desktop-floating-create {
   position: fixed;

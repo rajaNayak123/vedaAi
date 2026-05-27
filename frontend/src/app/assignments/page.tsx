@@ -180,15 +180,6 @@ export default function AssignmentsPage() {
                           }}
                           className="dropdown-trigger"
                           style={{
-                            background: 'none',
-                            border: 'none',
-                            cursor: 'pointer',
-                            padding: '8px',
-                            margin: '-8px',
-                            color: '#999',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
                             position: 'relative',
                             zIndex: 30
                           }}
