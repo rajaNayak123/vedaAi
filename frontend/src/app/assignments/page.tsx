@@ -39,6 +39,14 @@ export default function AssignmentsPage() {
     setOpenMenu(null);
   };
 
+  const handleCardClick = (id: string, e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (target.closest('.dropdown-trigger') || target.closest('.dropdown-menu-container')) {
+      return;
+    }
+    handleView(id);
+  };
+
   const formatDate = (dateStr: string) => {
     if (!dateStr) return '—';
     const d = new Date(dateStr);
@@ -158,25 +166,46 @@ export default function AssignmentsPage() {
                   <div
                     key={assignment._id}
                     className="assignment-card"
-                    onClick={() => handleView(assignment._id)}
+                    onClick={(e) => handleCardClick(assignment._id, e)}
                     style={{ position: 'relative' }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
                       <h3 style={{ fontWeight: 700, fontSize: 20, color: '#1A1A1A', flex: 1, letterSpacing: '-0.3px', margin: 0 }}>{assignment.title}</h3>
-                      <div style={{ position: 'relative' }}>
+                      <div style={{ position: 'relative', flexShrink: 0 }}>
                         <button
-                          onClick={(e) => { e.stopPropagation(); setOpenMenu(openMenu === assignment._id ? null : assignment._id); }}
-                          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: '#999', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setOpenMenu(openMenu === assignment._id ? null : assignment._id);
+                          }}
+                          className="dropdown-trigger"
+                          style={{
+                            background: 'none',
+                            border: 'none',
+                            cursor: 'pointer',
+                            padding: '8px',
+                            margin: '-8px',
+                            color: '#999',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            position: 'relative',
+                            zIndex: 30
+                          }}
                         >
-                          <MoreVertical size={18} />
+                          <MoreVertical size={18} style={{ pointerEvents: 'none' }} />
                         </button>
                         {openMenu === assignment._id && (
-                          <div style={{
-                            position: 'absolute', right: 0, top: '100%', zIndex: 50,
-                            background: 'white', border: '1px solid rgba(0,0,0,0.08)', borderRadius: 12,
-                            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-                            minWidth: 140, overflow: 'hidden', padding: '4px'
-                          }}>
+                          <div 
+                            className="dropdown-menu-container"
+                            onClick={(e) => e.stopPropagation()}
+                            style={{
+                              position: 'absolute', right: 0, top: '100%', zIndex: 50,
+                              background: 'white', border: '1px solid rgba(0,0,0,0.08)', borderRadius: 12,
+                              boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
+                              minWidth: 140, overflow: 'hidden', padding: '4px'
+                            }}
+                          >
                             <button
                               onClick={(e) => { e.stopPropagation(); handleView(assignment._id); }}
                               className="dropdown-menu-item"
