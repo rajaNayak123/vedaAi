@@ -45,12 +45,33 @@ export default function AssignmentsPage() {
     return d.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '-');
   };
 
+  if (isLoading) {
+    return (
+      <div style={{ display: 'flex' }}>
+        <Sidebar />
+        <div className="main-layout">
+          <MobileHeader title="Assignments" />
+          <Topbar breadcrumb="Assignments" />
+          <div className="content-area" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+              <div style={{
+                width: 40, height: 40, border: '3px solid rgba(26,26,26,0.1)',
+                borderTopColor: '#1A1A1A', borderRadius: '50%'
+              }} className="animate-spin" />
+              <p style={{ color: '#666', fontSize: 14, fontWeight: 500 }}>Loading assignments...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div style={{ display: 'flex' }}>
       <Sidebar />
       <div className="main-layout">
         <MobileHeader title="Assignments" />
-        <Topbar breadcrumb="Assignment" />
+        <Topbar breadcrumb="Assignments" />
         <div className="content-area">
           {assignments.length === 0 && !isLoading ? (
             /* Empty state */
