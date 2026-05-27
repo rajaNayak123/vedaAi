@@ -9,6 +9,7 @@ import Topbar from '@/components/Topbar';
 import { MobileHeader, MobileBottomNav } from '@/components/MobileNav';
 import { Assignment } from '@/types';
 import toast from 'react-hot-toast';
+import { Filter, Search, MoreVertical, Plus } from 'lucide-react';
 
 export default function AssignmentsPage() {
   const router = useRouter();
@@ -71,7 +72,7 @@ export default function AssignmentsPage() {
       <Sidebar />
       <div className="main-layout">
         <MobileHeader title="Assignments" />
-        <Topbar breadcrumb="Assignments" />
+        <Topbar backHref="/" breadcrumb="Assignment" />
         <div className="content-area">
           {assignments.length === 0 && !isLoading ? (
             /* Empty state */
@@ -97,29 +98,56 @@ export default function AssignmentsPage() {
             <div>
               {/* Header */}
               <div style={{ marginBottom: 20 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-                  <div className="heading-status-dot" />
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
+                  <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#4CAF50', flexShrink: 0 }} />
                   <h1 style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-0.5px' }}>Assignments</h1>
                 </div>
                 <p style={{ color: '#666', fontSize: 13 }}>Manage and create assignments for your classes.</p>
               </div>
 
-              {/* Filter + Search */}
-              <div style={{ display: 'flex', gap: 12, marginBottom: 20, alignItems: 'center' }}>
+              {/* Filter + Search bar matching screenshot */}
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                background: 'white',
+                border: '1px solid #E5E7EB',
+                borderRadius: '16px',
+                padding: '10px 20px',
+                marginBottom: 24,
+                boxShadow: '0 2px 8px rgba(0,0,0,0.02)'
+              }}>
                 <button style={{
-                  display: 'flex', alignItems: 'center', gap: 6,
-                  border: '1px solid #e0e0e0', borderRadius: 8, padding: '8px 14px',
-                  background: 'white', fontSize: 13, cursor: 'pointer', color: '#555'
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  background: 'none',
+                  border: 'none',
+                  fontSize: 13,
+                  fontWeight: 500,
+                  color: '#666',
+                  cursor: 'pointer'
                 }}>
-                  <FilterIcon /> Filter By
+                  <Filter size={15} style={{ color: '#666' }} />
+                  <span>Filter By</span>
                 </button>
-                <div style={{ flex: 1, position: 'relative' }}>
-                  <SearchIcon style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', color: '#999', zIndex: 10 }} />
+
+                <div style={{ width: '280px', position: 'relative' }}>
+                  <Search size={15} style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', color: '#999', zIndex: 10 }} />
                   <input
                     className="search-pill"
                     placeholder="Search Assignment"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
+                    style={{
+                      paddingLeft: 42,
+                      background: 'white',
+                      border: '1px solid #E5E7EB',
+                      borderRadius: '24px',
+                      fontSize: 13,
+                      height: '38px',
+                      boxShadow: 'none'
+                    }}
                   />
                 </div>
               </div>
@@ -133,41 +161,58 @@ export default function AssignmentsPage() {
                     onClick={() => handleView(assignment._id)}
                     style={{ position: 'relative' }}
                   >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
-                      <h3 style={{ fontWeight: 600, fontSize: 15, flex: 1 }}>{assignment.title}</h3>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
+                      <h3 style={{ fontWeight: 700, fontSize: 20, color: '#1A1A1A', flex: 1, letterSpacing: '-0.3px', margin: 0 }}>{assignment.title}</h3>
                       <div style={{ position: 'relative' }}>
                         <button
                           onClick={(e) => { e.stopPropagation(); setOpenMenu(openMenu === assignment._id ? null : assignment._id); }}
-                          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '2px 4px', color: '#666', fontSize: 18 }}
-                        >⋮</button>
+                          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: '#999', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                        >
+                          <MoreVertical size={18} />
+                        </button>
                         {openMenu === assignment._id && (
                           <div style={{
                             position: 'absolute', right: 0, top: '100%', zIndex: 50,
-                            background: 'white', border: '1px solid #e0e0e0', borderRadius: 8,
-                            boxShadow: '0 4px 16px rgba(0,0,0,0.1)', minWidth: 140, overflow: 'hidden'
+                            background: 'white', border: '1px solid rgba(0,0,0,0.08)', borderRadius: 12,
+                            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
+                            minWidth: 140, overflow: 'hidden', padding: '4px'
                           }}>
                             <button
                               onClick={(e) => { e.stopPropagation(); handleView(assignment._id); }}
-                              style={{ display: 'block', width: '100%', padding: '10px 16px', textAlign: 'left', background: 'none', border: 'none', cursor: 'pointer', fontSize: 13 }}
+                              className="dropdown-menu-item"
+                              style={{
+                                display: 'block', width: '100%', padding: '8px 12px', textAlign: 'left',
+                                background: 'none', border: 'none', cursor: 'pointer', fontSize: 13,
+                                fontWeight: 500, color: '#4B5563', borderRadius: 8, transition: 'background-color 0.15s'
+                              }}
                             >View Assignment</button>
                             <button
                               onClick={(e) => handleDelete(assignment._id, e)}
-                              style={{ display: 'block', width: '100%', padding: '10px 16px', textAlign: 'left', background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, color: '#E84A2F' }}
+                              className="dropdown-menu-item-delete"
+                              style={{
+                                display: 'block', width: '100%', padding: '8px 12px', textAlign: 'left',
+                                background: 'none', border: 'none', cursor: 'pointer', fontSize: 13,
+                                fontWeight: 500, color: '#DC2626', borderRadius: 8, transition: 'background-color 0.15s'
+                              }}
                             >Delete</button>
                           </div>
                         )}
                       </div>
                     </div>
 
-                    <StatusBadge status={assignment.status} />
+                    {assignment.status !== 'completed' && (
+                      <div style={{ marginBottom: 12 }}>
+                        <StatusBadge status={assignment.status} />
+                      </div>
+                    )}
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 12, fontSize: 12, color: '#666' }}>
-                      <span><strong>Assigned on</strong> : {formatDate(assignment.createdAt)}</span>
-                      {assignment.dueDate && <span><strong>Due</strong> : {formatDate(assignment.dueDate)}</span>}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 24, fontSize: 13, color: '#666' }}>
+                      <span><strong>Assigned on</strong> : <span style={{ color: '#1A1A1A', fontWeight: 600 }}>{formatDate(assignment.createdAt)}</span></span>
+                      {assignment.dueDate && <span><strong>Due</strong> : <span style={{ color: '#1A1A1A', fontWeight: 600 }}>{formatDate(assignment.dueDate)}</span></span>}
                     </div>
 
                     {assignment.status === 'processing' && (
-                      <div style={{ marginTop: 8 }}>
+                      <div style={{ marginTop: 12 }}>
                         <div className="progress-bar">
                           <div className="progress-fill animate-pulse" style={{ width: '60%' }} />
                         </div>
@@ -178,10 +223,24 @@ export default function AssignmentsPage() {
                 ))}
               </div>
 
-              {/* Floating create btn */}
+              {/* Floating create btn matching screenshot */}
               <Link href="/assignments/create" className="desktop-floating-create">
-                <button className="btn-primary" style={{ borderRadius: 24, padding: '12px 32px', boxShadow: '0 8px 24px rgba(0,0,0,0.12)', fontSize: 14 }}>
-                  <span style={{ fontSize: 18, fontWeight: 600 }}>+</span> Create Assignment
+                <button className="btn-primary" style={{
+                  borderRadius: 24,
+                  padding: '12px 28px',
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.16)',
+                  fontSize: 14,
+                  fontWeight: 600,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  background: '#1A1A1A',
+                  color: 'white',
+                  border: 'none',
+                  cursor: 'pointer'
+                }}>
+                  <Plus size={16} strokeWidth={2.5} />
+                  <span>Create Assignment</span>
                 </button>
               </Link>
             </div>

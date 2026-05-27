@@ -335,13 +335,17 @@ body {
 /* Cards */
 .assignment-card {
   background: white;
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  padding: 20px;
+  border: 1px solid #E5E7EB;
+  border-radius: 24px;
+  padding: 24px;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 }
-.assignment-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); transform: translateY(-1px); }
+.assignment-card:hover { 
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06); 
+  transform: translateY(-2px); 
+}
 
 /* Form */
 .form-card {
@@ -590,8 +594,13 @@ body {
 /* Assignments grid utility */
 .assignments-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 24px;
+}
+@media (min-width: 1024px) {
+  .assignments-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* Floating create button responsive utility */
@@ -871,7 +880,7 @@ body {
   width: 100%;
   border: 1px solid var(--border-color);
   border-radius: 24px;
-  padding: 10px 16px 10px 40px;
+  padding: 10px 16px 10px 42px;
   font-size: 14px;
   outline: none;
   transition: border-color 0.15s;
@@ -879,6 +888,15 @@ body {
 }
 .search-pill:focus { border-color: #999; }
 .search-pill::placeholder { color: var(--text-muted); }
+
+.dropdown-menu-item:hover {
+  background-color: #F3F4F6;
+  color: #1A1A1A !important;
+}
+.dropdown-menu-item-delete:hover {
+  background-color: #FEF2F2;
+  color: #DC2626 !important;
+}
 
 /* Desktop bottom-center floating button */
 .desktop-floating-create {
